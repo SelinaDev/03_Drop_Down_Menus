@@ -1,0 +1,112 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://assets/UI/buttonSquare_brown_pressed.png" type="Texture" id=1]
+[ext_resource path="res://src/UI_Elements/MenuButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/UI_Elements/MenuBar.gd" type="Script" id=3]
+[ext_resource path="res://src/UI_Elements/MenuItemConfig.gd" type="Script" id=4]
+[ext_resource path="res://assets/Icons/d6_outline_number.png" type="Texture" id=5]
+[ext_resource path="res://assets/Icons/d4_outline_number.png" type="Texture" id=6]
+[ext_resource path="res://assets/Icons/d12_outline_number.png" type="Texture" id=7]
+[ext_resource path="res://assets/Icons/d10_outline_number.png" type="Texture" id=8]
+[ext_resource path="res://assets/Icons/d8_outline_number.png" type="Texture" id=9]
+[ext_resource path="res://assets/Icons/d20_outline_number.png" type="Texture" id=10]
+[ext_resource path="res://src/Stage.gd" type="Script" id=11]
+[ext_resource path="res://assets/Font/Kenney Future.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://src/TestLabel.gd" type="Script" id=13]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 45, 45 )
+margin_left = 8.0
+margin_right = 7.0
+margin_top = 7.0
+margin_bottom = 7.0
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 4 )
+text = "Roll a D4"
+button_id = "d4"
+icon = ExtResource( 6 )
+icon_color = Color( 0, 0.192157, 0.0196078, 1 )
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 4 )
+text = "Roll a D6"
+button_id = "d6"
+icon = ExtResource( 5 )
+icon_color = Color( 0.415686, 0.0980392, 0.0823529, 1 )
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 4 )
+text = "Roll a D8"
+button_id = "d8"
+icon = ExtResource( 9 )
+icon_color = Color( 0.0196078, 0.2, 0.235294, 1 )
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 4 )
+text = "Roll a D10"
+button_id = "d10"
+icon = ExtResource( 8 )
+icon_color = Color( 0.572549, 0, 0.92549, 1 )
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 4 )
+text = "Roll a D12"
+button_id = "d12"
+icon = ExtResource( 7 )
+icon_color = Color( 0.0588235, 0.309804, 0.0745098, 1 )
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 4 )
+text = "Roll a D20"
+button_id = "d20"
+icon = ExtResource( 10 )
+icon_color = Color( 0.796078, 0.870588, 0.0588235, 1 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 64
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 12 )
+
+[node name="Stage" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 11 )
+
+[node name="MenuBar" type="PanelContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 14.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuBar"]
+margin_left = 8.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 31.0
+
+[node name="MenuButton" parent="MenuBar/HBoxContainer" instance=ExtResource( 2 )]
+margin_right = 116.0
+margin_bottom = 24.0
+text = "Roll a Die"
+menu_id = "dice"
+menu_options = [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ]
+
+[node name="DemoLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 8 )
+align = 1
+valign = 1
+script = ExtResource( 13 )
+
+[node name="Tween" type="Tween" parent="DemoLabel"]
+
+[node name="Timer" type="Timer" parent="DemoLabel"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="button_pressed" from="MenuBar" to="." method="_on_MenuBar_button_pressed"]
+[connection signal="timeout" from="DemoLabel/Timer" to="DemoLabel" method="_on_Timer_timeout"]

@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Control",
+"class": "MenuContainer",
+"language": "GDScript",
+"path": "res://src/UI_Elements/MenuContainer.gd"
+}, {
+"base": "Control",
+"class": "MenuItem",
+"language": "GDScript",
+"path": "res://src/UI_Elements/MenuItem.gd"
+}, {
+"base": "Resource",
+"class": "MenuItemConfig",
+"language": "GDScript",
+"path": "res://src/UI_Elements/MenuItemConfig.gd"
+} ]
+_global_script_class_icons={
+"MenuContainer": "",
+"MenuItem": "",
+"MenuItemConfig": ""
+}
+
+[application]
+
+config/name="Drop Down Menus Tutorial"
+run/main_scene="res://src/Stage.tscn"
+config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
